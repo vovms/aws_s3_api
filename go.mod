@@ -3,7 +3,7 @@ module aws_s3_api
 go 1.18
 
 require (
-	github.com/aws/aws-sdk-go v1.44.121 // indirect
+	//github.com/aws/aws-sdk-go v1.44.121 // indirect
 	github.com/aws/aws-sdk-go-v2 v1.17.0 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.4.8 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.17.9 // indirect

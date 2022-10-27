@@ -49,6 +49,33 @@ request body : json
 | `bucket_name` | `string` | **Required**. Bucket name |
 | `credentials` | `CredentialStruct` | **Required**. Credential struct |
 
+#### Replace object
+
+```http
+  POST /api/replaceFile
+```
+request body : json 
+
+| Parameter | Type     | Description                  |
+| :-------- | :------- | :-------------------------   |
+| `input_file` | `string` | **Required**. file`s name which we delete |
+| `output_file` | `string` | **Required**. file`s name which we create |
+| `bucket_name` | `string` | **Required**. Bucket name |
+| `credentials` | `CredentialStruct` | **Required**. Credential struct |
+
+#### Delete object
+
+```http
+  POST /api/deleteObject
+```
+request body : json 
+
+| Parameter | Type     | Description                  |
+| :-------- | :------- | :-------------------------   |
+| `object_key` | `string` | **Required**. file`s name which we delete |
+| `bucket_name` | `string` | **Required**. Bucket name |
+| `credentials` | `CredentialStruct` | **Required**. Credential struct |
+
 
 ## CredentialStruct
 | Parameter | Type     | Description                  |

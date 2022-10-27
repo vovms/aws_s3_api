@@ -20,6 +20,19 @@ type ListFileStruct struct {
 	Credentials CredentialsStruct `json:"credentials"`
 }
 
+type ReplaceFileStruct struct {
+	InputFile   string            `json:"input_file"`
+	OutputFile  string            `json:"output_file"`
+	BucketName  string            `json:"bucket_name"`
+	Credentials CredentialsStruct `json:"credentials"`
+}
+
+type DeleteObjStruct struct {
+	Key         string            `json:"object_key"`
+	BucketName  string            `json:"bucket_name"`
+	Credentials CredentialsStruct `json:"credentials"`
+}
+
 type FileOperationsResponseStruct struct {
 	Succesful   bool     `json:"successful"`
 	Description string   `json:"description"`

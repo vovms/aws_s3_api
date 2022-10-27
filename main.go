@@ -10,10 +10,17 @@ import (
 )
 
 func main() {
-	//gin.SetMode(gin.ReleaseMode)
-	//r := gin.New()
 
-	r := gin.Default()
+	debugMode := true
+
+	var r *gin.Engine
+
+	if debugMode {
+		r = gin.Default()
+	} else {
+		gin.SetMode(gin.ReleaseMode)
+		r = gin.New()
+	}
 
 	r.GET("api/", func(c *gin.Context) {
 
@@ -37,7 +44,7 @@ func main() {
 			c.JSON(http.StatusBadRequest, jsonAnswer)
 			return
 		}
-		responce := requesthendlers.DownloadHendler(json)
+		responce := requesthendlers.DownloadHandler(json)
 		c.JSON(200, responce)
 	})
 
@@ -50,7 +57,7 @@ func main() {
 			c.JSON(http.StatusBadRequest, jsonAnswer)
 			return
 		}
-		responce := requesthendlers.UploadHendler(json)
+		responce := requesthendlers.UploadHandler(json)
 		c.JSON(200, responce)
 	})
 
@@ -64,7 +71,33 @@ func main() {
 			return
 		}
 
-		responce := requesthendlers.ListHendler(json)
+		responce := requesthendlers.ListHandler(json)
+		c.JSON(200, responce)
+	})
+
+	r.POST("/api/replaceFile", func(c *gin.Context) {
+		var json data_types.ReplaceFileStruct
+		if err := c.ShouldBindJSON(&json); err != nil {
+			var jsonAnswer data_types.FileOperationsResponseStruct
+			jsonAnswer.Succesful = false
+			jsonAnswer.Description = err.Error()
+			c.JSON(http.StatusBadRequest, jsonAnswer)
+			return
+		}
+		responce := requesthendlers.ReplaceHandler(json)
+		c.JSON(200, responce)
+	})
+
+	r.POST("/api/deleteObject", func(c *gin.Context) {
+		var json data_types.DeleteObjStruct
+		if err := c.ShouldBindJSON(&json); err != nil {
+			var jsonAnswer data_types.FileOperationsResponseStruct
+			jsonAnswer.Succesful = false
+			jsonAnswer.Description = err.Error()
+			c.JSON(http.StatusBadRequest, jsonAnswer)
+			return
+		}
+		responce := requesthendlers.DeleteHandler(json)
 		c.JSON(200, responce)
 	})
 
