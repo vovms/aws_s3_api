@@ -6,7 +6,6 @@ Opportunities :
  - Upload file from bucket
  - Get list of files 
 
-
 ## API Reference
 
 #### Download file
