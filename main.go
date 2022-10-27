@@ -15,20 +15,20 @@ func main() {
 
 	r := gin.Default()
 
-	r.GET("/", func(c *gin.Context) {
+	r.GET("api/", func(c *gin.Context) {
 
 		c.JSON(200, gin.H{
 			"message": "/",
 		})
 	})
 
-	r.GET("/ping", func(c *gin.Context) {
+	r.GET("/api/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"ping": "OK",
 		})
 	})
 
-	r.POST("/downloadFile", func(c *gin.Context) {
+	r.POST("/api/downloadFile", func(c *gin.Context) {
 		var json data_types.DownloadFileStruct
 		if err := c.ShouldBindJSON(&json); err != nil {
 			var jsonAnswer data_types.FileOperationsResponseStruct
@@ -41,7 +41,7 @@ func main() {
 		c.JSON(200, responce)
 	})
 
-	r.POST("/uploadFile", func(c *gin.Context) {
+	r.POST("/api/uploadFile", func(c *gin.Context) {
 		var json data_types.UploadFileStruct
 		if err := c.ShouldBindJSON(&json); err != nil {
 			var jsonAnswer data_types.FileOperationsResponseStruct
@@ -54,7 +54,7 @@ func main() {
 		c.JSON(200, responce)
 	})
 
-	r.POST("/objectslist", func(c *gin.Context) {
+	r.POST("/api/objectslist", func(c *gin.Context) {
 		var json data_types.ListFileStruct
 		if err := c.ShouldBindJSON(&json); err != nil {
 			var jsonAnswer data_types.FileOperationsResponseStruct
