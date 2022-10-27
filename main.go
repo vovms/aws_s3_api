@@ -1,6 +1,7 @@
 package main
 
 import (
+	data_types "aws_s3_api/datatypes"
 	requesthendlers "aws_s3_api/request_hendlers"
 	"net/http"
 	"os"
@@ -28,42 +29,42 @@ func main() {
 	})
 
 	r.POST("/downloadFile", func(c *gin.Context) {
-		var json requesthendlers.DownloadFileStruct
+		var json data_types.DownloadFileStruct
 		if err := c.ShouldBindJSON(&json); err != nil {
-			var jsonAnswer requesthendlers.FileOperationsResponseStruct
+			var jsonAnswer data_types.FileOperationsResponseStruct
 			jsonAnswer.Succesful = false
 			jsonAnswer.Description = err.Error()
 			c.JSON(http.StatusBadRequest, jsonAnswer)
 			return
 		}
-		responce := requesthendlers.DownloadHendler(json.BucketName, json.FileName, json.FileNameOut)
+		responce := requesthendlers.DownloadHendler(json)
 		c.JSON(200, responce)
 	})
 
 	r.POST("/uploadFile", func(c *gin.Context) {
-		var json requesthendlers.UploadFileStruct
+		var json data_types.UploadFileStruct
 		if err := c.ShouldBindJSON(&json); err != nil {
-			var jsonAnswer requesthendlers.FileOperationsResponseStruct
+			var jsonAnswer data_types.FileOperationsResponseStruct
 			jsonAnswer.Succesful = false
 			jsonAnswer.Description = err.Error()
 			c.JSON(http.StatusBadRequest, jsonAnswer)
 			return
 		}
-		responce := requesthendlers.UploadHendler(json.BucketName, json.ServerFileName, json.FilePath)
+		responce := requesthendlers.UploadHendler(json)
 		c.JSON(200, responce)
 	})
 
 	r.POST("/objectslist", func(c *gin.Context) {
-		var json requesthendlers.ListFileStruct
+		var json data_types.ListFileStruct
 		if err := c.ShouldBindJSON(&json); err != nil {
-			var jsonAnswer requesthendlers.FileOperationsResponseStruct
+			var jsonAnswer data_types.FileOperationsResponseStruct
 			jsonAnswer.Succesful = false
 			jsonAnswer.Description = err.Error()
 			c.JSON(http.StatusBadRequest, jsonAnswer)
 			return
 		}
 
-		responce := requesthendlers.ListHendler(json.BucketName, json.Prefix)
+		responce := requesthendlers.ListHendler(json)
 		c.JSON(200, responce)
 	})
 

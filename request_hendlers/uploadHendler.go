@@ -2,19 +2,14 @@ package request_hendlers
 
 import (
 	aws_component "aws_s3_api/aws_components"
+	data_types "aws_s3_api/datatypes"
 )
 
-type UploadFileStruct struct {
-	FilePath       string `json:"file_path"`
-	ServerFileName string `json:"server_file_name"`
-	BucketName     string `json:"bucket_name"`
-}
+func UploadHendler(json data_types.UploadFileStruct) (response data_types.FileOperationsResponseStruct) {
 
-func UploadHendler(bucketName, serverFileName, filePath string) (response FileOperationsResponseStruct) {
+	var jsonAnswer data_types.FileOperationsResponseStruct
 
-	var jsonAnswer FileOperationsResponseStruct
-
-	err, localion := aws_component.UploadFile(bucketName, serverFileName, filePath)
+	err, localion := aws_component.UploadFile(json.BucketName, json.ServerFileName, json.FilePath, json.Credentials)
 
 	if err != nil {
 		jsonAnswer.Succesful = false

@@ -2,6 +2,7 @@ package request_hendlers
 
 import (
 	aws_component "aws_s3_api/aws_components"
+	data_types "aws_s3_api/datatypes"
 	"log"
 )
 
@@ -10,12 +11,11 @@ type ListFileStruct struct {
 	BucketName string `json:"bucket_name"`
 }
 
-func ListHendler(bucketName, prefix string) (response FileOperationsResponseStruct) {
+func ListHendler(json data_types.ListFileStruct) (response data_types.FileOperationsResponseStruct) {
 
-	var delimiter = ""
-	var jsonResponse FileOperationsResponseStruct
+	var jsonResponse data_types.FileOperationsResponseStruct
 
-	itemsList, err := aws_component.GetListObjectsInABucket(bucketName, prefix, delimiter)
+	itemsList, err := aws_component.GetListObjectsInABucket(json.BucketName, json.Prefix, json.Credentials)
 
 	if err != nil {
 		log.Println(err)

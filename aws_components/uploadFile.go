@@ -5,12 +5,14 @@ import (
 	"log"
 	"os"
 
+	data_types "aws_s3_api/datatypes"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/feature/s3/manager"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
-func UploadFile(bucketName, fileName, uploadFileFullPath string) (err error, localion string) {
+func UploadFile(bucketName, fileName, uploadFileFullPath string, Credentials data_types.CredentialsStruct) (err error, localion string) {
 
 	file, err := os.Open(uploadFileFullPath) // For read access.
 	if err != nil {
@@ -19,7 +21,7 @@ func UploadFile(bucketName, fileName, uploadFileFullPath string) (err error, loc
 	}
 
 	// Create client s3
-	clients3, err := CreateClientS3()
+	clients3, err := CreateClientS3(Credentials.AWS_ACCESS_KEY_ID, Credentials.AWS_SECRET_ACCESS_KEY, Credentials.AWS_S3_REGION)
 	if err != nil {
 		return err, localion
 	}

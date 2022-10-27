@@ -13,14 +13,18 @@ const (
 	AWS_S3_REGION = "eu-central-1" // Region
 )
 
-func CreateClientS3() (client *s3.Client, err error) {
+func CreateClientS3(access_key, aws_secret_key, region string) (client *s3.Client, err error) {
 
-	creds := credentials.NewStaticCredentialsProvider("", "", "")
+	creds := credentials.NewStaticCredentialsProvider(access_key, aws_secret_key, "")
+
+	if region == "" {
+		region = AWS_S3_REGION
+	}
 
 	// Load AWS Config
 	cfg, err := config.LoadDefaultConfig(context.TODO(),
 		config.WithCredentialsProvider(creds),
-		config.WithRegion(AWS_S3_REGION))
+		config.WithRegion(region))
 	if err != nil {
 		log.Println(err)
 		return nil, err
