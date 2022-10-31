@@ -84,6 +84,30 @@ request body : json
 | `aws_secret_key` | `string` | **Required**. AWS secret key  |
 | `region` | `string` | **Optional**. AWS region |
 
+## Deploy in IIS
+All files are by the path `/files for IIS`
+
+First of all, you must install standard IIS module, for example as for 1C publications.
+
+After that create a folder with your .exe file and file "web.config" (example of the file`s content is at the end of this topic). 
+
+Then you can adjust IIS. For that run IIS manager, add a new pool (name may be anyone), parameter ".Net CLR version" change to "No Managed Code" else parameters stay default.
+
+Add a new website, the name may be anyone, the port is the port on which will start your service, choose your new pool, and indicate the path to the folder with your files.
+
+#### Example of web.config
+```
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <system.webServer>
+        <handlers>
+            <add name="aspNetCore" path="*" verb="*" modules="AspNetCoreModule" resourceType="Unspecified" />
+        </handlers>
+        <aspNetCore processPath=".\aws_api.exe" />
+    </system.webServer>
+</configuration>
+```
+ 
 
 ## Used By
 

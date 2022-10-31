@@ -11,7 +11,7 @@ import (
 
 func main() {
 
-	debugMode := true
+	debugMode := false
 
 	var r *gin.Engine
 
